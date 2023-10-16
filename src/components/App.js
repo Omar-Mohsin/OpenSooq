@@ -6,15 +6,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from './Home';
 import React from 'react'
 import CreatePost from './CreatePost';
-
+import { SelectUser } from '../../redux/auth/authSlice';
+import SignIn from './SignIn';
+import { useSelector  , useDispatch} from 'react-redux';
 const App = () => {
 
   enableScreens();
 
   const Tab = createBottomTabNavigator();
-
+  const user  = useSelector(SelectUser)
   return (
     <NavigationContainer>
+
+
+        {user?(
+
       <Tab.Navigator>
         <Tab.Screen
           name="Home"
@@ -31,8 +37,8 @@ const App = () => {
           name="addPost"
           component={CreatePost}
           options={{
-            title: 'add post',
-            tabBarLabel: 'post',
+            title: 'Create Post',
+            tabBarLabel: 'Create Post',
             tabBarIcon: ({ color, size }) => (
               <Icon name="plus-square-o" color={color} size={size} />
             ),
@@ -40,17 +46,22 @@ const App = () => {
         />
 
         <Tab.Screen
-          name="Settings"
+          name="Profile"
           component={Home}
           options={{
-            title: 'settings',
-            tabBarLabel: 'settings ',
+            title: 'Profile',
+            tabBarLabel: '`Profile ',
             tabBarIcon: ({ color, size }) => (
               <Icon name="home" color={color} size={size} />
             ),
           }}
         />
       </Tab.Navigator>
+      ) : 
+          <View>
+            <SignIn></SignIn>
+          </View>
+      }
     </NavigationContainer>
 
 

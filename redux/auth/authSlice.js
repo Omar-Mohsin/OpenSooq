@@ -8,6 +8,7 @@ const initialState = {
                 name: 'Omar',
                 email: 'Omar@gmail.com',
                 password: "b21hcm9tYXI=",
+                profilePic : 'https://robohash.org/1?set=set2' ,
                 posts: [],
 
             },
@@ -15,12 +16,15 @@ const initialState = {
                 name: 'Ahmad',
                 email: 'Demo448@gmail.com',
                 password: "YWhtYWQxMjM=",
+                profilePic : 'https://robohash.org/1?set=set1' ,
+
                 posts: [],
             },
             {
                 name: 'Samer',
-                email: 'MockDummy@gmail,com',
+                email: 'MockDummy@gmail.com',
                 password: "c2FtZXIxMjM=",
+                profilePic : 'https://robohash.org/1?set=set4' ,
                 posts: [],
             },
         ],

@@ -11,7 +11,7 @@ const Profile = () => {
             <View style={styles.header}>
                 <Image
                     source={{
-                        uri: 'https://robohash.org/1?set=set2',
+                        uri: user.profilePic,
                     }}
                     style={styles.profileImage}
                 />

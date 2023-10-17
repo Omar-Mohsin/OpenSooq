@@ -5,20 +5,21 @@ import { SelectUser } from '../../redux/auth/authSlice'
 const Home = () => {
 
   const user  = useSelector(SelectUser);
-  console.log(user);
   return (
     <View>
       
 
-        {user?.posts.length>0?(
+        {user?.length>0?(
           <View> 
     
-          <Text>{user.posts[0].text}</Text>
+          {/* <Text>{user.posts[0].text}</Text> */}
 
 
           </View>
         ) : 
-            <Text>there are no post in this moment</Text>
+       
+            <Text >there are no posts in this moment</Text>
+           
         }
 
     </View>
@@ -27,4 +28,6 @@ const Home = () => {
 
 export default Home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})

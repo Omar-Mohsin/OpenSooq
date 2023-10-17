@@ -30,7 +30,7 @@ const App = () => {
             title: 'Home',
             tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
+              <Icon name="home" color={color} size={25}/>  
             ),
           }}
         />

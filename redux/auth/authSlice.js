@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import base64 from 'react-native-base64'
 
 const initialState = {
     users:
@@ -7,7 +7,7 @@ const initialState = {
             {
                 name: 'Omar',
                 email: 'Omar@gmail.com',
-                password: "omaromar",
+                password: "b21hcm9tYXI=",
                 posts: [],
 
             },
@@ -29,6 +29,14 @@ const initialState = {
 
 }
 
+const decode = (password) => {
+
+    const pass = base64.decode(password);
+  
+    return pass
+  
+  }
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -40,7 +48,7 @@ const authSlice = createSlice({
             reducer(state, action) {
                 const { email, password } = action.payload;
                 const user = state.users.find(
-                    (user) => user.email === email && user.password === password
+                    (user) => user.email === email && decode(user.password) === password
                 );
 
                 if (user) {

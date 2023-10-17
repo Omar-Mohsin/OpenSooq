@@ -1,10 +1,26 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-
+import { useSelector } from 'react-redux'
+import { SelectUser } from '../../redux/auth/authSlice'
 const Home = () => {
+
+  const user  = useSelector(SelectUser);
+  console.log(user);
   return (
     <View>
-      <Text>Home</Text>
+      
+
+        {user?.posts.length>0?(
+          <View> 
+    
+          <Text>{user.posts[0].text}</Text>
+
+
+          </View>
+        ) : 
+            <Text>there are no post in this moment</Text>
+        }
+
     </View>
   )
 }

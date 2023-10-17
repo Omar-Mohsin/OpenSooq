@@ -5,6 +5,7 @@ import { enableScreens } from 'react-native-screens';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from './Home';
 import React from 'react'
+import Profile from './Profile';
 import CreatePost from './CreatePost';
 import { SelectUser } from '../../redux/auth/authSlice';
 import SignIn from './SignIn';
@@ -34,7 +35,7 @@ const App = () => {
           }}
         />
         <Tab.Screen
-          name="addPost"
+          name="createPost"
           component={CreatePost}
           options={{
             title: 'Create Post',
@@ -47,7 +48,7 @@ const App = () => {
 
         <Tab.Screen
           name="Profile"
-          component={Home}
+          component={Profile}
           options={{
             title: 'Profile',
             tabBarLabel: '`Profile ',

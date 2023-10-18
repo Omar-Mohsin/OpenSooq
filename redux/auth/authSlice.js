@@ -66,14 +66,7 @@ const authSlice = createSlice({
                 state.loggedInUser = null;
             }
         },
-        addPost: {
-            reducer(state, action) {
-                const item = action.payload;
-
-                state.loggedInUser.posts.push(item)
-
-            }
-        },
+    
     }
 })
 
@@ -83,4 +76,4 @@ export const SelectUser = (state)=>{
 }
 
 export const authReducer = authSlice.reducer;
-export const { login, logout, addPost } = authSlice.actions;
+export const { login, logout } = authSlice.actions;

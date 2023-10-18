@@ -51,7 +51,7 @@ const App = () => {
           component={Profile}
           options={{
             title: 'Profile',
-            tabBarLabel: '`Profile ',
+            tabBarLabel: 'Profile',
             tabBarIcon: ({ color, size }) => (
               <Icon name="user" color={color} size={size} />
             ),

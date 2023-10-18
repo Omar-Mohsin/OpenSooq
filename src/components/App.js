@@ -23,17 +23,17 @@ const App = () => {
         {user?(
 
       <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: 'Home',
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={25}/>  
-            ),
-          }}
-        />
+      <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{
+              title: 'Home',
+              tabBarLabel: 'Home',
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="home" color={color} size={size} /> // Ensure the icon name is correct
+              ),
+            }}
+          />
         <Tab.Screen
           name="createPost"
           component={CreatePost}
@@ -53,7 +53,7 @@ const App = () => {
             title: 'Profile',
             tabBarLabel: '`Profile ',
             tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
+              <Icon name="user" color={color} size={size} />
             ),
           }}
         />

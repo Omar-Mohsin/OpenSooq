@@ -23,6 +23,7 @@ const CreatePost = () => {
           user: user,
           title: title,
           content: content,
+          date : new Date(),
         })
       );
       setContent('')

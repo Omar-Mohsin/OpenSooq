@@ -42,6 +42,9 @@ const Home = () => {
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
+                <Text style={styles.postDate}>
+                  Date: {new Date(post.date).toLocaleString()}
+                </Text>
               </View>
             ))}
           </ScrollView>
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
   postsContainer: {
     padding: 16,
   },
+
   postCard: {
     backgroundColor: '#F9F3CC',
     borderRadius: 10,
@@ -105,11 +109,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: 'black', // Post title color
+    color: 'black',
   },
   postContent: {
-    fontSize: 14,
+    fontSize: 17,
     color: '#555',
+    
+        marginBottom: 8,
+
+    
+  },
+  postDate: {
+    fontSize: 13,
+    color: 'blue', 
   },
   noPostsText: {
     fontSize: 18,

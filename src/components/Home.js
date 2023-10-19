@@ -114,14 +114,11 @@ const styles = StyleSheet.create({
   postContent: {
     fontSize: 17,
     color: '#555',
-    
-        marginBottom: 8,
-
-    
+    marginBottom: 8,
   },
   postDate: {
     fontSize: 13,
-    color: 'blue', 
+    color: 'blue',
   },
   noPostsText: {
     fontSize: 18,

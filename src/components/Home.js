@@ -1,36 +1,54 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { useSelector } from 'react-redux';
-import { SelectUser } from '../../redux/auth/authSlice';
 import { SelectPosts } from '../../redux/posts/postsSlice';
-
+import { useState, useEffect } from 'react';
 const Home = () => {
+
+
   const posts = useSelector(SelectPosts);
+  const [searchField, setsearchField] = useState('')
+  const [filteredPosts, setFilterdPosts] = useState(posts);
+
+  const searchHandler = (text) => {
+    setsearchField(text)
+  }
+
+  useEffect(() => {
+    const newFilteredPosts = posts.filter((post) => {
+      return post.title.toLowerCase().includes(searchField);
+    });
+    setFilterdPosts(newFilteredPosts);
+  }, [posts, searchField])
+
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Post Title"
-          placeholderTextColor="gray" // Add placeholder text color
-        />
-      </View>
-      <ScrollView>
-        {posts?.length > 0 ? (
-          <View style={styles.postsContainer}>
-            {posts.map((post) => (
+      {posts?.length > 0 ? (
+        <View>
+          <View style={styles.searchBar}>
+
+            <TextInput
+              placeholder='Search'
+              style={styles.searchInput}
+              onChangeText={searchHandler}
+            >
+            </TextInput>
+          </View>
+          <ScrollView style={styles.postsContainer}>
+            {filteredPosts.map((post) => (
               <View key={post.id} style={styles.postCard}>
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
               </View>
             ))}
-          </View>
-        ) : (
-          <Text style={styles.noPostsText}>There are no posts at the moment.</Text>
-        )}
-      </ScrollView>
+          </ScrollView>
+        </View>
+      ) : (
+        <Text style={styles.noPostsText}>There are no posts at the moment.</Text>
+      )}
     </View>
   );
 };
@@ -45,21 +63,24 @@ const styles = StyleSheet.create({
   searchBar: {
 
     height: 40,
-    width: '80%',
+    width: '100%',
     marginVertical: 10,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderRadius: 25, // Increased border radius for rounded corners
+    borderRadius: 25,
     borderColor: '#ccc',
     backgroundColor: 'white',
-    flexDirection: 'row', // Arrange icon and input horizontally
-    alignItems: 'center', // Center-align the content
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   searchInput: {
-  flex: 1, // Allows the input to expand and take up remaining space
-  fontSize: 16,
-  color: 'black', // Color for the text
-},
+
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    fontSize: 16,
+    color: 'black',
+  },
 
   postsContainer: {
     padding: 16,

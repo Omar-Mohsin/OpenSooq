@@ -47,13 +47,13 @@ const SignIn = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#9EB384',
+    backgroundColor: '#D2E0FB',
     padding: 20,
     justifyContent: 'center',
     height : '100%'
   },
   formContainer: {
-    backgroundColor: '#FAF1E4',
+    backgroundColor: '#8EACCD',
     padding: 20,
     borderRadius: 30,
     height  :  '70%',
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     justifyContent : 'center',
   },
   title: {
+    
     marginBottom : 30,
     fontSize: 24,
     fontWeight: 'bold',
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     borderRadius: 15,
-    backgroundColor: '#435334',
+    backgroundColor: '#F9F3CC',
     width: 150,
     height: 50,
     alignItems: 'center',
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: 20,
-    color: 'white',
+    color : 'black'
   },
 });
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useState, useEffect } from 'react';
@@ -24,7 +26,8 @@ const Home = () => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} >
+
       {posts?.length > 0 ? (
         <View>
           <View style={styles.searchBar}>
@@ -38,24 +41,25 @@ const Home = () => {
           </View>
           <ScrollView style={styles.postsContainer}>
             {filteredPosts.map((post) => (
-              <View key={post.id} style={styles.postCard}>
+              <SafeAreaView key={post.id} style={styles.postCard}>
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postTitle}>{post.category}</Text>
-                <Text style={styles.postContent}>${post.price}</Text>
-
                 <Text style={styles.postContent}>{post.content}</Text>
+
+                <Text style={styles.price}>${post.price}</Text>
+
                 <Text style={styles.postDate}>
                   Date: {new Date(post.date).toLocaleString()}
                 </Text>
-              </View>
+              </SafeAreaView>
             ))}
           </ScrollView>
         </View>
       ) : (
         <Text style={styles.noPostsText}>There are no posts at the moment.</Text>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F3CC',
     borderRadius: 10,
     padding: 16,
-    marginBottom: 80,
+    marginBottom: 50,
     elevation: 3,
     shadowColor: 'black',
     shadowRadius: 3,
@@ -119,6 +123,7 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 8,
   },
+  price : {color :'green', fontSize : 19},
   postDate: {
     fontSize: 13,
     color: 'blue',

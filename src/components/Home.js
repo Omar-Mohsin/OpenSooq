@@ -68,6 +68,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom : 60,
     backgroundColor: '#D2E0FB',
   },
   searchBar: {
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F3CC',
     borderRadius: 10,
     padding: 16,
-    marginBottom: 50,
+    marginBottom: 25,
     elevation: 3,
     shadowColor: 'black',
     shadowRadius: 3,

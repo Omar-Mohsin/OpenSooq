@@ -20,6 +20,8 @@ const Home = () => {
     const newFilteredPosts = posts.filter((post) => {
       return post.title.toLowerCase().includes(searchField.toLocaleLowerCase());
     });
+    newFilteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
     setFilterdPosts(newFilteredPosts);
   }, [posts, searchField])
 
@@ -68,7 +70,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom : 60,
+    paddingBottom: 60,
     backgroundColor: '#D2E0FB',
   },
   searchBar: {
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 8,
   },
-  price : {color :'green', fontSize : 19},
+  price: { color: 'green', fontSize: 19 },
   postDate: {
     fontSize: 13,
     color: 'blue',

@@ -30,7 +30,7 @@ const CreatePost = () => {
   };
 
   const handlePostButton = () => {
-    if (content && title  && price && selectedValue) {
+    if (content && title && price && selectedValue) {
       dispatch(
         addPost({
           id: nanoid(),
@@ -39,7 +39,7 @@ const CreatePost = () => {
           content: content,
           date: new Date(),
           category: selectedValue,
-          price  : price ,
+          price: price,
         })
       );
       setContent('');
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#D2E0FB',
-    paddingHorizontal: 16,
     paddingTop: 20,
   },
   heading: {
@@ -135,10 +134,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 30,
+    paddingHorizontal: 16,
+
   },
   inputLabel: {
     color: 'black',
     fontSize: 18,
+
   },
   input: {
     height: 40,
@@ -165,7 +167,6 @@ const styles = StyleSheet.create({
   },
   RadioContainer: {
 
-
     marginTop: 50,
   },
   radioButton: {
@@ -175,9 +176,11 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     marginBottom: 20,
+    marginLeft : 10
   },
   card: {
-    marginRight: 10,
+    marginLeft: 10,
+
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,

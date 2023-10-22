@@ -23,8 +23,10 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.welcoming}>
+        <Text style={styles.welcomingText}>Welcome Back!</Text>
+      </View>
       <View style={styles.formContainer}>
-        <Text style={styles.title}>Welcome Back!</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter Email"
@@ -37,7 +39,7 @@ const SignIn = () => {
           secureTextEntry={true}
           onChangeText={handlePassword}
         />
-        <Pressable style={styles.button} onPress={handleSignIn}>
+        <Pressable style={styles.SignInButton} onPress={handleSignIn}>
           <Text style={styles.signInText}>Sign in</Text>
         </Pressable>
       </View>
@@ -47,49 +49,60 @@ const SignIn = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#D2E0FB',
-    padding: 20,
-    justifyContent: 'center',
-    height : '100%'
+    flex:1,
+    height: '100%',
   },
-  formContainer: {
-    backgroundColor: '#8EACCD',
-    padding: 20,
-    borderRadius: 30,
-    height  :  '70%',
-    alignItems: 'center',
 
-    justifyContent : 'center',
+  welcoming: {
+
+    paddingTop: 200,
+    flex: 1,
+    flexDirection : 'row',
+    justifyContent: 'flex-start',
+      marginLeft : 24,
+    alignItems: 'center'
   },
-  title: {
-    
-    marginBottom : 30,
+  welcomingText: {
+    marginBottom: 30,
     fontSize: 24,
     fontWeight: 'bold',
     marginVertical: 20,
+    color: 'black',
+
   },
+
+  formContainer: {
+    flex: 1,
+    padding: 20,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 200,
+
+  },
+
   input: {
     height: 40,
     width: '100%',
     marginVertical: 10,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 5,
     borderColor: '#ccc',
     backgroundColor: 'white',
   },
-  button: {
-    marginTop: 20,
+  SignInButton: {
+    marginTop: 50,
     borderRadius: 15,
-    backgroundColor: '#F9F3CC',
-    width: 150,
+    backgroundColor: 'black',
+    width: 250,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   signInText: {
-    fontSize: 20,
-    color : 'black'
+    fontSize: 24,
+    color: 'white'
   },
 });
 

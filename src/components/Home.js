@@ -41,6 +41,9 @@ const Home = () => {
               <View key={post.id} style={styles.postCard}>
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
+                <Text style={styles.postTitle}>{post.category}</Text>
+                <Text style={styles.postContent}>${post.price}</Text>
+
                 <Text style={styles.postContent}>{post.content}</Text>
                 <Text style={styles.postDate}>
                   Date: {new Date(post.date).toLocaleString()}
@@ -93,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9F3CC',
     borderRadius: 10,
     padding: 16,
-    marginBottom: 16,
+    marginBottom: 80,
     elevation: 3,
     shadowColor: 'black',
     shadowRadius: 3,

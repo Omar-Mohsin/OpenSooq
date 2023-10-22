@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     const newFilteredPosts = posts.filter((post) => {
-      return post.title.toLowerCase().includes(searchField);
+      return post.title.toLowerCase().includes(searchField.toLocaleLowerCase());
     });
     setFilterdPosts(newFilteredPosts);
   }, [posts, searchField])

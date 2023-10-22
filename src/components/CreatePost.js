@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity , ScrollView } from 'react-native';
 import { useState } from 'react';
 import { SelectUser } from '../../redux/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { addPost } from '../../redux/posts/postsSlice';
 import { nanoid } from '@reduxjs/toolkit';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useNavigation } from '@react-navigation/native';
+
 
 const CreatePost = () => {
   const navigation = useNavigation();
@@ -33,7 +34,7 @@ const CreatePost = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.heading}>Create a New Post</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Post Title</Text>
@@ -59,7 +60,9 @@ const CreatePost = () => {
       >
         <Text style={styles.buttonText}>Post</Text>
       </TouchableOpacity>
-    </View>
+      
+      
+    </ScrollView>
   );
 };
 

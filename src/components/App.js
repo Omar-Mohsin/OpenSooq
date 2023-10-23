@@ -9,7 +9,7 @@ import CreatePost from './CreatePost';
 import { SelectUser } from '../../redux/auth/authSlice';
 import SignIn from './SignIn';
 import { useSelector } from 'react-redux';
-import Search from './Search'; 
+import SearchStack from './SearchStack';
 const App = () => {
   const Tab = createBottomTabNavigator();
   const user = useSelector(SelectUser);
@@ -52,11 +52,13 @@ const App = () => {
             }}
           />
           <Tab.Screen
-            name="Search"
-            component={Search}
+            name="SearchStack"
+            component={SearchStack}
             options={{
               title: 'Search',
               tabBarLabel: 'Search',
+              headerShown: false,
+
               tabBarIcon: ({ color, size }) => (
                 <Icon name="search" color={color} size={size} />
               ),

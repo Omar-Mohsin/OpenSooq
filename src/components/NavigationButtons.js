@@ -60,12 +60,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        marginTop: 10,
+        marginTop: 30,
         marginButton: 10,
-        backgroundColor: '#0077b6',
+        backgroundColor: 'black',
         borderRadius: 15,
         height: 40,
         width: 200,
+    
         alignItems: 'center',
     },
     ButtonText: {
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     },
 
     LogoutButton: {
-        marginTop: 10,
+        marginTop: 70,
         marginButton: 10,
         backgroundColor: 'red',
         borderRadius: 15,

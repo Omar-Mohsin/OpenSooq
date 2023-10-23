@@ -42,8 +42,7 @@ const CreatePost = () => {
           price: price,
         })
       );
-      setContent('');
-      setTitle('');
+
       navigation.navigate('Home');
     }
   };

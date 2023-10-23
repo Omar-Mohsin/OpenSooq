@@ -28,7 +28,7 @@ export default Profile
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#FAF1E4',
+        backgroundColor: '#EEEE',
         height: '100%',
     },
     header: {

@@ -13,7 +13,7 @@ const NavigationButtons = () => {
     };
 
     const NavigateToHome = () => {
-        navigation.navigate('Home');
+            navigation.navigate('Home');
     };
 
 

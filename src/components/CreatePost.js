@@ -7,6 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useNavigation } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const CreatePost = () => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [selectedValue, setSelectedValue] = useState('Car');
   const [price, setPrice] = useState()
-
+  const [image , setImage] = useState('');
   const RedioButtonsValues = [
     'Car',
     'House',
@@ -29,6 +30,25 @@ const CreatePost = () => {
     setSelectedValue(value);
   };
 
+
+
+  const imagePicker = ()=>{
+
+    let options =  { 
+      strongOption:{
+        path :'photo', 
+      }
+    }
+
+    launchImageLibrary(options, response=>{
+      if (!response.didCancel) {
+        setImage(response.assets[0]?.uri || ''); // Set the image URI
+
+      }
+    });
+  
+
+  }
   const handlePostButton = () => {
     if (content && title && price && selectedValue) {
       dispatch(
@@ -90,6 +110,9 @@ const CreatePost = () => {
           </ScrollView>
         </View>
 
+                <TouchableOpacity onPress={()=>{imagePicker()}}>
+                  <Text>Insert an Image</Text>
+                </TouchableOpacity>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Price</Text>
           <TextInput

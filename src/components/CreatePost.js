@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView , Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { SelectUser } from '../../redux/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useNavigation } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const CreatePost = () => {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [selectedValue, setSelectedValue] = useState('Car');
   const [price, setPrice] = useState()
-  const [image , setImage] = useState('');
+  const [image, setImage] = useState('');
   const RedioButtonsValues = [
     'Car',
     'House',
@@ -32,25 +32,25 @@ const CreatePost = () => {
 
 
 
-  const imagePicker = ()=>{
+  const imagePicker = () => {
 
-    let options =  { 
-      strongOption:{
-        path :'photo', 
+    let options = {
+      strongOption: {
+        path: 'photo',
       }
     }
 
-    launchImageLibrary(options, response=>{
+    launchImageLibrary(options, response => {
       if (!response.didCancel) {
         setImage(response.assets[0]?.uri || ''); // Set the image URI
 
       }
     });
-  
+
 
   }
   const handlePostButton = () => {
-    if (content && title && price && selectedValue) {
+    if (content && title && price && selectedValue && image) {
       dispatch(
         addPost({
           id: nanoid(),
@@ -60,9 +60,9 @@ const CreatePost = () => {
           date: new Date(),
           category: selectedValue,
           price: price,
+          image: image,
         })
       );
-
       navigation.navigate('Home');
     }
   };
@@ -110,9 +110,9 @@ const CreatePost = () => {
           </ScrollView>
         </View>
 
-                <TouchableOpacity onPress={()=>{imagePicker()}}>
-                  <Text>Insert an Image</Text>
-                </TouchableOpacity>
+        <Pressable onPress={() => { imagePicker() }} style={styles.ImagePicker}>
+          <Text style={styles.ImagePickerText}>Insert an Image</Text>
+        </Pressable>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Price</Text>
           <TextInput
@@ -123,10 +123,10 @@ const CreatePost = () => {
             numberOfLines={4}
           />
         </View>
-        <View style = {styles.ButtonContainer}>
-        <Pressable style={styles.postButton} onPress={handlePostButton}>
-          <Text style={styles.buttonText}>Post</Text>
-        </Pressable>
+        <View style={styles.ButtonContainer}>
+          <Pressable style={styles.postButton} onPress={handlePostButton}>
+            <Text style={styles.buttonText}>Post</Text>
+          </Pressable>
 
         </View>
       </ScrollView>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 
   },
   inputLabel: {
-    marginLeft : 5,
+    marginLeft: 5,
     color: 'black',
     fontSize: 18,
 
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: 'white',
   },
- 
+
   RadioContainer: {
     marginTop: 50,
   },
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     marginBottom: 20,
-    marginLeft : 10
+    marginLeft: 10
   },
   card: {
     marginLeft: 10,
@@ -200,14 +200,32 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
-  ButtonContainer :  { 
-     flex :1  , 
-     justifyContent : 'center' , 
-     alignItems : 'center',
-    paddingBottom : 60,
-  } , 
+
+
+  ImagePicker: {
+    flex: 1,
+    marginTop: 20,
+    marginLeft: 10,
+    height: 50,
+    backgroundColor: 'black',
+    width: 150,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ImagePickerText: {
+    color: 'white',
+    fontSize: 17
+  },
+
+  ButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 60,
+  },
   postButton: {
-    flex  :1,
+    flex: 1,
     marginTop: 50,
     borderRadius: 15,
     backgroundColor: 'black',

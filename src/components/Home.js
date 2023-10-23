@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput , Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
@@ -34,10 +34,12 @@ const Home = () => {
               onChangeText={searchHandler}
             />
           </View>
-          <ScrollView style={styles.postsContainer}>
+          <ScrollView  >
             {filteredPosts.map((post) => (
               <SafeAreaView key={post.id} style={styles.postCard}>
                 <Text style={styles.userName}>{post.user.name}</Text>
+                <Image source={{uri: post.image}} style={styles.imagePost}/>
+
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postCategory}>{post.category}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
@@ -79,7 +81,11 @@ const styles = StyleSheet.create({
     color: 'black',
     padding: 5,
   },
-  postsContainer: {
+  imagePost : {
+    height : 300  , 
+    width : 300,
+    width: '100%',
+    
   },
   postCard: {
     backgroundColor: 'white',

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView , Pressable } from 'react-native';
 import { useState } from 'react';
 import { SelectUser } from '../../redux/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -101,14 +101,12 @@ const CreatePost = () => {
             numberOfLines={4}
           />
         </View>
-        <TouchableOpacity
-          style={styles.postButton}
-          onPress={handlePostButton}
-        >
+        <View style = {styles.ButtonContainer}>
+        <Pressable style={styles.postButton} onPress={handlePostButton}>
           <Text style={styles.buttonText}>Post</Text>
-        </TouchableOpacity>
+        </Pressable>
 
-
+        </View>
       </ScrollView>
 
 
@@ -121,7 +119,7 @@ export default CreatePost;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D2E0FB',
+    backgroundColor: '#EEEE',
     paddingTop: 20,
   },
   heading: {
@@ -138,6 +136,7 @@ const styles = StyleSheet.create({
 
   },
   inputLabel: {
+    marginLeft : 5,
     color: 'black',
     fontSize: 18,
 
@@ -152,21 +151,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: 'white',
   },
-  postButton: {
-    backgroundColor: '#F9F3CC',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 50,
-    marginBottom: 50,
-
-  },
-  buttonText: {
-    color: 'black',
-    fontSize: 18,
-    textAlign: 'center',
-  },
+ 
   RadioContainer: {
-
     marginTop: 50,
   },
   radioButton: {
@@ -180,7 +166,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginLeft: 10,
-
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
@@ -192,5 +177,26 @@ const styles = StyleSheet.create({
   cardText: {
     color: 'black',
     marginTop: 5,
+  },
+  ButtonContainer :  { 
+     flex :1  , 
+     justifyContent : 'center' , 
+     alignItems : 'center',
+    paddingBottom : 60,
+  } , 
+  postButton: {
+    flex  :1,
+    marginTop: 50,
+    borderRadius: 15,
+    backgroundColor: 'black',
+    width: 250,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });

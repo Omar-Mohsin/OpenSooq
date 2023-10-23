@@ -1,56 +1,47 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useState, useEffect } from 'react';
+
 const Home = () => {
-
-
   const posts = useSelector(SelectPosts);
-  const [searchField, setsearchField] = useState('')
-  const [filteredPosts, setFilterdPosts] = useState(posts);
+  const [searchField, setSearchField] = useState('');
+  const [filteredPosts, setFilteredPosts] = useState(posts);
 
   const searchHandler = (text) => {
-    setsearchField(text)
-  }
+    setSearchField(text);
+  };
 
   useEffect(() => {
     const newFilteredPosts = posts.filter((post) => {
-      return post.title.toLowerCase().includes(searchField.toLocaleLowerCase());
+      return post.title.toLowerCase().includes(searchField.toLowerCase());
     });
     newFilteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    setFilterdPosts(newFilteredPosts);
-  }, [posts, searchField])
-
-
+    setFilteredPosts(newFilteredPosts);
+  }, [posts, searchField]);
 
   return (
-    <SafeAreaView style={styles.container} >
-
+    <SafeAreaView style={styles.container}>
       {posts?.length > 0 ? (
         <View>
           <View style={styles.searchBar}>
-
             <TextInput
-              placeholder='Search'
+              placeholder='Search...'
               style={styles.searchInput}
               onChangeText={searchHandler}
-            >
-            </TextInput>
+            />
           </View>
           <ScrollView style={styles.postsContainer}>
             {filteredPosts.map((post) => (
               <SafeAreaView key={post.id} style={styles.postCard}>
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
-                <Text style={styles.postTitle}>{post.category}</Text>
+                <Text style={styles.postCategory}>{post.category}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
-
                 <Text style={styles.price}>${post.price}</Text>
-
                 <Text style={styles.postDate}>
                   Date: {new Date(post.date).toLocaleString()}
                 </Text>
@@ -65,68 +56,64 @@ const Home = () => {
   );
 };
 
-export default Home;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 60,
-    backgroundColor: '#D2E0FB',
+    backgroundColor: '#EEEEEE',
+    alignItems: 'center',
   },
   searchBar: {
-
+    width: '80%',
     height: 40,
-    width: '100%',
     marginVertical: 10,
-    paddingHorizontal: 10,
     borderWidth: 1,
-    borderRadius: 25,
-    borderColor: '#ccc',
+    borderRadius: 10,
     backgroundColor: 'white',
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   searchInput: {
-
     flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
     fontSize: 16,
     color: 'black',
+    padding: 5,
   },
-
   postsContainer: {
-    padding: 16,
   },
-
   postCard: {
-    backgroundColor: '#F9F3CC',
-    borderRadius: 10,
-    padding: 16,
-    marginBottom: 25,
+    backgroundColor: 'white',
+    padding : 10,
+    borderRadius: 15,
+    marginBottom: 20,  
     elevation: 3,
-    shadowColor: 'black',
-    shadowRadius: 3,
   },
   userName: {
-
     fontSize: 16,
     fontWeight: 'bold',
+    color: 'black',
     marginBottom: 8,
-    color: 'red',
   },
   postTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 8,
     color: 'black',
+    marginBottom: 8,
+  },
+  postCategory: {
+    fontSize: 14,
+    color: 'gray',
+    marginBottom: 8,
   },
   postContent: {
     fontSize: 17,
-    color: '#555',
+    color: 'black',
     marginBottom: 8,
   },
-  price: { color: 'green', fontSize: 19 },
+  price: {
+    fontSize: 18,
+    color: 'green',
+  },
   postDate: {
     fontSize: 13,
     color: 'blue',
@@ -138,3 +125,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default Home;

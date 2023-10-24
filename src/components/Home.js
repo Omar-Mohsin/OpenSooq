@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   },
   noPostsText: {
     fontSize: 18,
+    marginTop : 100,
     textAlign: 'center',
     margin: 16,
     color: 'black',

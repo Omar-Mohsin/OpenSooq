@@ -24,6 +24,7 @@ const App = () => {
             options={{
               title: 'Home',
               tabBarLabel: 'Home',
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <Icon name="home" color={color} size={size} />
               ),
@@ -35,6 +36,7 @@ const App = () => {
             options={{
               title: 'Create Post',
               tabBarLabel: 'Create Post',
+              headerShown: false,
               tabBarIcon: ({ color, size }) => (
                 <Icon name="edit" color={color} size={size} />
               ),
@@ -46,6 +48,8 @@ const App = () => {
             options={{
               title: 'Profile',
               tabBarLabel: 'Profile',
+              headerShown: false,
+
               tabBarIcon: ({ color, size }) => (
                 <Icon name="user" color={color} size={size} />
               ),
@@ -58,7 +62,6 @@ const App = () => {
               title: 'Search',
               tabBarLabel: 'Search',
               headerShown: false,
-
               tabBarIcon: ({ color, size }) => (
                 <Icon name="search" color={color} size={size} />
               ),

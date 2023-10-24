@@ -30,8 +30,6 @@ const CreatePost = () => {
     setSelectedValue(value);
   };
 
-
-
   const imagePicker = () => {
 
     let options = {

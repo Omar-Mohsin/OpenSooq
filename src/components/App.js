@@ -10,6 +10,7 @@ import { SelectUser } from '../../redux/auth/authSlice';
 import SignIn from './SignIn';
 import { useSelector } from 'react-redux';
 import SearchStack from './SearchStack';
+import HomeStack from './HomeStack';
 const App = () => {
   const Tab = createBottomTabNavigator();
   const user = useSelector(SelectUser);
@@ -20,7 +21,7 @@ const App = () => {
         <Tab.Navigator>
           <Tab.Screen
             name="Home"
-            component={Home}
+            component={HomeStack}
             options={{
               title: 'Home',
               tabBarLabel: 'Home',

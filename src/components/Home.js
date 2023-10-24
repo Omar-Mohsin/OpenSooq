@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput , Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput , Image, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useState, useEffect } from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
   const posts = useSelector(SelectPosts);
   const [searchField, setSearchField] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(posts);
+  const navigation = useNavigation();
 
   const searchHandler = (text) => {
     setSearchField(text);
@@ -26,7 +28,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       {posts?.length > 0 ? (
-        <View>
+        <View style ={{marginTop  :10}}>
           <View style={styles.searchBar}>
             <TextInput
               placeholder='Search...'
@@ -34,9 +36,12 @@ const Home = () => {
               onChangeText={searchHandler}
             />
           </View>
-          <ScrollView  >
+          <ScrollView style={{marginTop :20}} >
             {filteredPosts.map((post) => (
-              <SafeAreaView key={post.id} style={styles.postCard}>
+              <Pressable key={post.id} style={styles.postCard} onPress={()=> 
+                navigation.navigate('Detail', {post})
+
+              } >
                 <Text style={styles.userName}>{post.user.name}</Text>
                 <Image source={{uri: post.image}} style={styles.imagePost}/>
 
@@ -47,7 +52,7 @@ const Home = () => {
                 <Text style={styles.postDate}>
                   Date: {new Date(post.date).toLocaleString()}
                 </Text>
-              </SafeAreaView>
+              </Pressable>
             ))}
           </ScrollView>
         </View>

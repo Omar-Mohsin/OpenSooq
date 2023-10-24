@@ -10,12 +10,9 @@ const initialState = [];
 
         addPost :  { 
              reducer  (state , action){
-
                 state.push(action.payload);
-
              }
         }
-
     }
 });
 

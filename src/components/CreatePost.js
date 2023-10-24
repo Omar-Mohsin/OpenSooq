@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, Pressable } from 'react-native';
 import { useState } from 'react';
 import { SelectUser } from '../../redux/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useNavigation } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const CreatePost = () => {
   const navigation = useNavigation();

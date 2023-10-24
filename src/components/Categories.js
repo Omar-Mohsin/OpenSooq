@@ -4,8 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 
-const Category = ({ route }) => {
+import { Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+const Categories = ({ route }) => {
   const { categoryName } = route.params;
+  const navigation = useNavigation();
   const posts = useSelector(SelectPosts);
   const filteredPosts = posts.filter((post) => post.category === categoryName);
 
@@ -14,7 +18,7 @@ const Category = ({ route }) => {
       <ScrollView>
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <SafeAreaView key={post.id} style={styles.postCard}>
+            <Pressable key={post.id} style={styles.postCard} onPress={()=>{navigation.navigate("carCategory")}}>
               <Text style={styles.userName}>{post.user.name}</Text>
               <Image source={{ uri: post.image }} style={styles.imagePost} />
               <Text style={styles.postTitle}>{post.title}</Text>
@@ -24,7 +28,7 @@ const Category = ({ route }) => {
               <Text style={styles.postDate}>
                 Date: {new Date(post.date).toLocaleString()}
               </Text>
-            </SafeAreaView>
+            </Pressable>
           ))
         ) : (
           <Text style= {styles.noPostsText}>No {categoryName} Posts</Text>
@@ -34,12 +38,13 @@ const Category = ({ route }) => {
   )
 }
 
-export default Category;
+export default Categories;
 
 const styles = StyleSheet.create({
   Container: {
     height: '100%',
     marginTop: 20,
+    padding : 20,
   },
   imagePost: {
     height: 300,
@@ -47,8 +52,8 @@ const styles = StyleSheet.create({
   },
   postCard: {
     backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 15,
+    padding: 24,
+    borderRadius: 10,
     marginBottom: 20,
     elevation: 3,
   },
@@ -77,6 +82,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     color: 'green',
+    marginBottom : 10,
   },
   postDate: {
     fontSize: 13,

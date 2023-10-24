@@ -6,9 +6,9 @@ const PostDetail = ({ route }) => {
 
   const images = [
     post.image,
-    'https://placehold.co/600x400',
-    'https://placehold.co/600x400',
-    'https://placehold.co/600x400',
+    'https://placehold.co/600x400/png',
+    'https://placehold.co/600x400/png',
+    'https://placehold.co/600x400/png',
   ];
 
   return (
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowWidth * 0.7,
     resizeMode: 'cover', // Use 'cover' to fill the image container
+    backgroundColor : 'white'
   },
   postInfo: {
     backgroundColor: '#fff',

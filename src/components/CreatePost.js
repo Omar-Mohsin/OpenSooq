@@ -107,7 +107,24 @@ const CreatePost = () => {
             ))}
           </ScrollView>
         </View>
-
+        {selectedValue === 'Car' ? (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder='Model'
+              onChangeText={setContent}
+              multiline={true}
+              numberOfLines={4}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Year"
+              onChangeText={setContent}
+              multiline={true}
+              numberOfLines={4}
+            />
+          </View>
+        ) : <View></View>}
         <Pressable onPress={() => { imagePicker() }} style={styles.ImagePicker}>
           <Text style={styles.ImagePickerText}>Insert an Image</Text>
         </Pressable>

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import axios from 'axios';
-import { Image } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const CarDetail = () => {
-    const [cars, setCars] = useState([]); // Use an empty array as the initial state.
+    const [cars, setCars] = useState([]);
 
     useEffect(() => {
         axios.get('https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/data.json')
             .then((response) => {
                 setCars(response.data.slice(0, 100));
-
             })
             .catch((error) => {
                 console.error('Error fetching car data:', error);
@@ -19,19 +16,34 @@ const CarDetail = () => {
     }, []);
 
     return (
-        <View>
+        <ScrollView style={{backgroundColor : 'white'}}>
             {cars.map((car, index) => (
-                <ScrollView key={index}>
-                <Text >{car.name}</Text>
-                <Image
-                source={{uri : car.image.source[index]}}
-                ></Image>
-                </ScrollView>
+                <View style={styles.carContainer} key={index}>
+                    <Image
+                        source={{ uri: car.image.source }}
+                        style={styles.carImage}
+                    />
+                    <Text style={styles.carName}>{car.name}</Text>
+                </View>
             ))}
-        </View>
+        </ScrollView>
     );
 };
 
-export default CarDetail;
+const styles = StyleSheet.create({
+    carContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    carImage: {
+        width: 100,
+        height: 100,
+        marginRight: 10,
+    },
+    carName: {
+        fontSize: 18,
+    },
+});
 
-const styles = StyleSheet.create({});
+export default CarDetail;

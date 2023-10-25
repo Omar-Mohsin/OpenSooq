@@ -1,98 +1,70 @@
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
-import { SelectPosts } from '../../redux/posts/postsSlice';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import axios from 'axios';
 
-import { Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+const CarDetail = () => {
+    const [cars, setCars] = useState([]);
 
-const Categories = ({ route }) => {
-  const { categoryName } = route.params;
-  const navigation = useNavigation();
-  const posts = useSelector(SelectPosts);
-  const filteredPosts = posts.filter((post) => post.category === categoryName);
+    useEffect(() => {
+        axios.get('https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/data.json')
+            .then((response) => {
+                setCars(response.data.slice(0, 100));
+            })
+            .catch((error) => {
+                console.error('Error fetching car data:', error);
+            });
+    }, []);
 
-  return (
-    <View style={styles.Container}>
-      <ScrollView>
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <Pressable key={post.id} style={styles.postCard} onPress={()=>{navigation.navigate("carCategory")}}>
-              <Text style={styles.userName}>{post.user.name}</Text>
-              <Image source={{ uri: post.image }} style={styles.imagePost} />
-              <Text style={styles.postTitle}>{post.title}</Text>
-              <Text style={styles.postCategory}>{post.category}</Text>
-              <Text style={styles.postContent}>{post.content}</Text>
-              <Text style={styles.price}>${post.price}</Text>
-              <Text style={styles.postDate}>
-                Date: {new Date(post.date).toLocaleString()}
-              </Text>
-            </Pressable>
-          ))
-        ) : (
-          <Text style= {styles.noPostsText}>No {categoryName} Posts</Text>
-        )}
-      </ScrollView>
-    </View>
-  )
-}
-
-export default Categories;
+    return (
+        <View style={styles.container}>
+            <ScrollView style={styles.scrollView}>
+                {cars.map((car, index) => (
+                    <View style={styles.carContainer} key={index}>
+                        <Image
+                            source={{ uri: car.image.source }}
+                            style={styles.carImage}
+                        />
+                        <Text style={styles.carName}>{car.name}</Text>
+                    </View>
+                ))}
+            </ScrollView>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
-  Container: {
-    height: '100%',
-    marginTop: 20,
-    padding : 20,
-  },
-  imagePost: {
-    height: 300,
-    width: '100%',
-  },
-  postCard: {
-    backgroundColor: 'white',
-    padding: 24,
-    borderRadius: 10,
-    marginBottom: 20,
-    elevation: 3,
-  },
-  userName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 8,
-  },
-  postTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 8,
-  },
-  postCategory: {
-    fontSize: 14,
-    color: 'gray',
-    marginBottom: 8,
-  },
-  postContent: {
-    fontSize: 17,
-    color: 'black',
-    marginBottom: 8,
-  },
-  price: {
-    fontSize: 18,
-    color: 'green',
-    marginBottom : 10,
-  },
-  postDate: {
-    fontSize: 13,
-    color: 'blue',
-  },
-  noPostsText: {
-    fontSize: 18,
-    marginTop: 100,
-    textAlign: 'center',
-    margin: 16,
-    color: 'black',
-  },
-})
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#f7f7f7',
+    },
+    scrollView: {
+        flex: 1, // Make the ScrollView take up all available space
+    },
+    carContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: '#fff',
+        marginBottom: 10,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2,
+    },
+    carImage: {
+        width: 120,
+        height: 80,
+        marginRight: 15,
+        borderRadius: 5,
+    },
+    carName: {
+        fontSize: 18,
+        flex: 1,
+        color: '#333',
+    },
+});
+
+export default CarDetail;

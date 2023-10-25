@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
-
 const PostDetail = ({ route }) => {
   const { post } = route.params;
 

@@ -8,14 +8,14 @@ const Search = () => {
 
 
   const navigateToCategory = (categoryName) => {
-    navigation.navigate('Category', { categoryName });
+    navigation.navigate('CategoriesFilter', { categoryName });
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.categoriesContainer} >
         <Pressable style={styles.category} onPress={() => {
-          navigateToCategory('Car')
+          navigation.navigate('carCategory')
         }}>
           <Text style={styles.categoryText}>Car</Text>
         </Pressable>

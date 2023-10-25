@@ -40,4 +40,6 @@ const carsSlice = createSlice({
 export const SelectAllCars = (state) => {
     return state.cars.carsList
 }
+export const { reducer: carsReducer } = carsSlice;
+
 export default carsSlice.reducer;

@@ -3,12 +3,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { authReducer } from "./auth/authSlice";
 import { postsReducer } from "./posts/postsSlice";
-
+import { carsReducer } from "./auth/Cars/carsSlice";
 
 const rootReducers = combineReducers({
 
     auth: authReducer,
     posts: postsReducer,
+    cars : carsReducer,
 
 })
 

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     carContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        padding: 25,
         backgroundColor: '#fff',
         marginBottom: 34,
         borderRadius: 10,
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',  
        },
     carImage: {
-        width: 110,
-        height: 100,
+        width: 120,
+        height: 105,
         marginRight: 40,
         padding: 30,
     },

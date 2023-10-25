@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice , createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios";
 
 
@@ -8,7 +8,7 @@ const initialState = {
     error: null
 }
 const cars_URL = 'https://raw.githubusercontent.com/filippofilip95/car-logos-dataset/master/logos/data.json'
-export const fetchProducts = createAsyncThunk('cars/fetchCars', async () => {
+export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
     try {
         const response = await axios.get(cars_URL);
         return response.data.slice(0, 100);

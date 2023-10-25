@@ -1,54 +1,63 @@
-import { StyleSheet, Text, View, TextInput, ScrollView, Pressable } from 'react-native';
-import { useState } from 'react';
-import { SelectUser } from '../../redux/auth/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPost } from '../../redux/posts/postsSlice';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, ScrollView, Pressable, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useNavigation } from '@react-navigation/native';
 import { RadioButton } from 'react-native-paper';
 import { launchImageLibrary } from 'react-native-image-picker';
-
+import { SelectAllCars } from '../../redux/auth/Cars/carsSlice';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { addPost } from '../../redux/posts/postsSlice';
+import { SelectUser } from '../../redux/auth/authSlice';
 const CreatePost = () => {
   const navigation = useNavigation();
-  const posts = useSelector(SelectPosts);
+  const cars = useSelector(SelectAllCars);
   const user = useSelector(SelectUser);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedValue, setSelectedValue] = useState('Car');
-  const [price, setPrice] = useState()
-  const [image, setImage] = useState('');
-  const RedioButtonsValues = [
-    'Car',
-    'House',
-    'Phone',
-    'Pc'
-  ];
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+
+  const RadioButtonsValues = ['Car', 'House', 'Phone', 'Pc'];
 
   const handleRadioChange = (value) => {
     setSelectedValue(value);
   };
 
   const imagePicker = () => {
-
     let options = {
-      strongOption: {
-        path: 'photo',
-      }
-    }
+      mediaType: 'photo',
+    };
 
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options, (response) => {
       if (!response.didCancel) {
-        setImage(response.assets[0]?.uri || ''); // Set the image URI
-
+        setImage(response.assets[0]?.uri || null);
       }
     });
+  };
 
-
-  }
   const handlePostButton = () => {
     if (content && title && price && selectedValue && image) {
+      if(selectedValue === 'Car'){
+      dispatch(
+        addPost({
+          id: nanoid(),
+          user: user,
+          title: title,
+          content: content,
+          date: new Date(),
+          category: selectedValue,
+          brand : value,
+          price: price,
+          image: image,
+        })
+      );
+     
+    } else { 
       dispatch(
         addPost({
           id: nanoid(),
@@ -61,8 +70,10 @@ const CreatePost = () => {
           image: image,
         })
       );
-      navigation.navigate('Home');
     }
+
+    navigation.navigate('Home');
+  }
   };
 
   return (
@@ -89,13 +100,12 @@ const CreatePost = () => {
         </View>
 
         <View style={styles.RadioContainer}>
-
-          <Text style={styles.RadioText}>category</Text>
-          <ScrollView horizontal={true} >
-            {RedioButtonsValues.map((category) => (
+          <Text style={styles.RadioText}>Category</Text>
+          <ScrollView horizontal={true}>
+            {RadioButtonsValues.map((category) => (
               <View key={category} style={styles.radioButton}>
                 <View style={styles.card}>
-                  <RadioButton.Android
+                  <RadioButton
                     value={category}
                     status={selectedValue === category ? 'checked' : 'unchecked'}
                     onPress={() => handleRadioChange(category)}
@@ -108,24 +118,19 @@ const CreatePost = () => {
           </ScrollView>
         </View>
         {selectedValue === 'Car' ? (
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder='Model'
-              onChangeText={setContent}
-              multiline={true}
-              numberOfLines={4}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Year"
-              onChangeText={setContent}
-              multiline={true}
-              numberOfLines={4}
-            />
-          </View>
-        ) : <View></View>}
-        <Pressable onPress={() => { imagePicker() }} style={styles.ImagePicker}>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={cars.map((car) => ({
+              label: car.name,
+              value: car.name,
+            }))}
+            setOpen={setOpen}
+            setValue={setValue}
+            style = {{marginTop : 20}}
+          />
+        ) : null}
+        <Pressable onPress={imagePicker} style={styles.ImagePicker}>
           <Text style={styles.ImagePickerText}>Insert an Image</Text>
         </Pressable>
         <View style={styles.inputContainer}>
@@ -142,16 +147,11 @@ const CreatePost = () => {
           <Pressable style={styles.postButton} onPress={handlePostButton}>
             <Text style={styles.buttonText}>Post</Text>
           </Pressable>
-
         </View>
       </ScrollView>
-
-
     </View>
   );
 };
-
-export default CreatePost;
 
 const styles = StyleSheet.create({
   container: {
@@ -170,13 +170,11 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 30,
     paddingHorizontal: 16,
-
   },
   inputLabel: {
     marginLeft: 5,
     color: 'black',
     fontSize: 18,
-
   },
   input: {
     height: 40,
@@ -188,7 +186,6 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: 'white',
   },
-
   RadioContainer: {
     marginTop: 50,
   },
@@ -199,7 +196,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     marginBottom: 20,
-    marginLeft: 10
+    marginLeft: 10,
   },
   card: {
     marginLeft: 10,
@@ -215,8 +212,6 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
-
-
   ImagePicker: {
     flex: 1,
     marginTop: 20,
@@ -230,9 +225,8 @@ const styles = StyleSheet.create({
   },
   ImagePickerText: {
     color: 'white',
-    fontSize: 17
+    fontSize: 17,
   },
-
   ButtonContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -255,3 +249,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default CreatePost;

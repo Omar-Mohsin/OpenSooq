@@ -11,7 +11,7 @@ const cars_URL = 'https://raw.githubusercontent.com/filippofilip95/car-logos-dat
 export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
     try {
         const response = await axios.get(cars_URL);
-        return response.data.slice(0, 50);
+        return response.data.slice(0, 10);
     } catch (error) {
         throw error;
     }

@@ -52,6 +52,8 @@ const Home = () => {
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postCategory}>{post.category}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
+                <Text style={styles.postContent}>brand  : {post.brand}</Text>
+
                 <Text style={styles.price}>${post.price}</Text>
                 <Text style={styles.postDate}>
                   Date: {new Date(post.date).toLocaleString()}

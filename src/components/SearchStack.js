@@ -4,6 +4,7 @@ import Search from './Search';
 import CarDetail from './CarDetail';
 import React from 'react'
 import CategoriesFilter from './CategoriesFilter';
+import CarCategotyFilter from './CarCategotyFilter';
 const SearchStack = () => {
 
   const Stack = createStackNavigator();
@@ -15,19 +16,16 @@ const SearchStack = () => {
         component={Search}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Category" component={Search}
+      <Stack.Screen name="Category" component={Search} />
 
-      />
-    
-       <Stack.Screen name="carCategory" component={CarDetail}
-               options={{ headerShown: false }}
+      <Stack.Screen name="carCategory" component={CarDetail}
+        options={{ headerShown: false }} />
 
-      />
-           <Stack.Screen name="CategoriesFilter" component={CategoriesFilter}
-               options={{ headerShown: false }}
+      <Stack.Screen name="CategoriesFilter" component={CategoriesFilter}
+        options={{ headerShown: false }} />
 
-      />
-
+      <Stack.Screen name="CarCategoriesFilter" component={CarCategotyFilter}
+        options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

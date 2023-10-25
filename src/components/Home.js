@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput , Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, Image, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { SelectPosts } from '../../redux/posts/postsSlice';
 import { useState, useEffect } from 'react';
-import {useNavigation} from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { fetchCars } from '../../redux/auth/Cars/carsSlice';
 const Home = () => {
   const posts = useSelector(SelectPosts);
   const [searchField, setSearchField] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(posts);
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const searchHandler = (text) => {
     setSearchField(text);
   };
@@ -25,10 +26,14 @@ const Home = () => {
     setFilteredPosts(newFilteredPosts);
   }, [posts, searchField]);
 
+  useEffect(() => {
+    dispatch(fetchCars());
+}, []);
+
   return (
     <SafeAreaView style={styles.container}>
       {posts?.length > 0 ? (
-        <View style ={{marginTop  :10}}>
+        <View style={{ marginTop: 10 }}>
           <View style={styles.searchBar}>
             <TextInput
               placeholder='Search...'
@@ -36,15 +41,14 @@ const Home = () => {
               onChangeText={searchHandler}
             />
           </View>
-          <ScrollView style={{marginTop :20}} >
+          <ScrollView style={{ marginTop: 20 }} >
             {filteredPosts.map((post) => (
-              <Pressable key={post.id} style={styles.postCard} onPress={()=> 
-                navigation.navigate('Detail', {post})
+              <Pressable key={post.id} style={styles.postCard} onPress={() =>
+                navigation.navigate('Detail', { post })
 
               } >
                 <Text style={styles.userName}>{post.user.name}</Text>
-                <Image source={{uri: post.image}} style={styles.imagePost}/>
-
+                <Image source={{ uri: post.image }} style={styles.imagePost} resizeMode="contain" />
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postCategory}>{post.category}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
@@ -86,17 +90,18 @@ const styles = StyleSheet.create({
     color: 'black',
     padding: 5,
   },
-  imagePost : {
-    height : 300  , 
-    width : 300,
-    width: '100%',
-    
+  imagePost: {
+    height: 300,
+    width: 300,
+    marginTop : 30,
+    marginBottom : 30,
+
   },
   postCard: {
     backgroundColor: 'white',
-    padding : 10,
+    padding: 10,
     borderRadius: 15,
-    marginBottom: 20,  
+    marginBottom: 20,
     elevation: 3,
   },
   userName: {
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
   },
   noPostsText: {
     fontSize: 18,
-    marginTop : 100,
+    marginTop: 100,
     textAlign: 'center',
     margin: 16,
     color: 'black',

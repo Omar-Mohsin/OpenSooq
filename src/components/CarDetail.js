@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { fetchCars } from '../../redux/auth/Cars/carsSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
+import { useSelector } from 'react-redux';
 import { SelectAllCars } from '../../redux/auth/Cars/carsSlice';
-
+import { useNavigation } from '@react-navigation/native';
 const CarDetail = () => {
     const cars = useSelector(SelectAllCars);
-    const dispatch = useDispatch();
+    const navigation = useNavigation();
 
-    useEffect(() => {
-        dispatch(fetchCars());
-    }, []);
-
+ 
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 {cars.map((car, index) => (
-                    <View style={styles.carContainer} key={index}>
+                    <Pressable style={styles.carContainer} key={index} onPress={()=>{navigation.navigate('CarCategoriesFilter' ,{carName : car.name})}}>
                         <Image
                             source={{ uri: car.image.source }}
                             style={styles.carImage}
+                            resizeMode="contain"
                         />
                         <Text style={styles.carName}>{car.name}</Text>
-                    </View>
+                    </Pressable>
                 ))}
             </ScrollView>
         </View>
@@ -49,8 +45,8 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',  
        },
     carImage: {
-        width: 120,
-        height: 105,
+        width: 90,
+        height: 90,
         marginRight: 40,
         padding: 30,
     },

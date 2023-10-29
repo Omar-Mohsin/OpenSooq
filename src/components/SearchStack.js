@@ -18,14 +18,13 @@ const SearchStack = () => {
       />
       <Stack.Screen name="Category" component={Search} />
 
-      <Stack.Screen name="carCategory" component={CarDetail}
-        options={{ headerShown: false }} />
+      <Stack.Screen name="Cars Category" component={CarDetail}
+         />
 
-      <Stack.Screen name="CategoriesFilter" component={CategoriesFilter}
-        options={{ headerShown: false }} />
+      <Stack.Screen name="Post" component={CategoriesFilter}
+         />
 
-      <Stack.Screen name="CarCategoriesFilter" component={CarCategotyFilter}
-        options={{ headerShown: false }} />
+      <Stack.Screen name="Cars Posts" component={CarCategotyFilter} />
     </Stack.Navigator>
   )
 }

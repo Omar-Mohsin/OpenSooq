@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
+
 const PostDetail = ({ route }) => {
   const { post } = route.params;
 
@@ -21,9 +22,10 @@ const PostDetail = ({ route }) => {
       </View>
       <View style={styles.postInfo}>
         <Text style={styles.postTitle}>{post.title}</Text>
-        <Text style={styles.postContent}>{post.content}</Text>
         <Text style={styles.postCategory}>{post.category}</Text>
+        <Text style={styles.postContent}>{post.content}</Text>
         <Text style={styles.postPrice}>${post.price}</Text>
+        
       </View>
     </ScrollView>
   );
@@ -36,21 +38,19 @@ const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: 'white',
   },
   imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: windowWidth * 0.7,
+    marginBottom: 20,
   },
   postImage: {
     width: windowWidth,
     height: windowWidth * 0.7,
-    resizeMode: 'cover', // Use 'cover' to fill the image container
-    backgroundColor : 'white'
+    resizeMode: 'cover',
   },
   postInfo: {
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -61,14 +61,8 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 10,
   },
-  postContent: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 20,
-  },
   postCategory: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#FF5722',
     marginBottom: 10,
   },
@@ -76,5 +70,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#FF5722',
+  },
+  postContent: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 20,
   },
 });

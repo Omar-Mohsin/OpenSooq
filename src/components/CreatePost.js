@@ -9,6 +9,8 @@ import { SelectAllCars } from '../../redux/auth/Cars/carsSlice';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { addPost } from '../../redux/posts/postsSlice';
 import { SelectUser } from '../../redux/auth/authSlice';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 const CreatePost = () => {
   const navigation = useNavigation();
   const cars = useSelector(SelectAllCars);
@@ -42,43 +44,42 @@ const CreatePost = () => {
 
   const handlePostButton = () => {
     if (content && title && price && selectedValue && image) {
-      if(selectedValue === 'Car'){
-      dispatch(
-        addPost({
-          id: nanoid(),
-          user: user,
-          title: title,
-          content: content,
-          date: new Date(),
-          category: selectedValue,
-          brand : value,
-          price: price,
-          image: image,
-        })
-      );
-     
-    } else { 
-      dispatch(
-        addPost({
-          id: nanoid(),
-          user: user,
-          title: title,
-          content: content,
-          date: new Date(),
-          category: selectedValue,
-          price: price,
-          image: image,
-        })
-      );
-    }
+      if (selectedValue === 'Car') {
+        dispatch(
+          addPost({
+            id: nanoid(),
+            user: user,
+            title: title,
+            content: content,
+            date: new Date(),
+            category: selectedValue,
+            brand: value,
+            price: price,
+            image: image,
+          })
+        );
+      } else {
+        dispatch(
+          addPost({
+            id: nanoid(),
+            user: user,
+            title: title,
+            content: content,
+            date: new Date(),
+            category: selectedValue,
+            price: price,
+            image: image,
+          })
+        );
+      }
 
-    navigation.navigate('Home');
-  }
+      navigation.navigate('Home');
+    }
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.heading}>Create a New Post</Text>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Post Title</Text>
@@ -100,11 +101,11 @@ const CreatePost = () => {
         </View>
 
         <View style={styles.RadioContainer}>
-          <Text style={styles.RadioText}>Category</Text>
-          <ScrollView horizontal={true}>
+          <Text style={styles.inputLabel}>Category</Text>
+          <ScrollView horizontal={true} contentContainerStyle={styles.radioButtonsContainer}>
             {RadioButtonsValues.map((category) => (
               <View key={category} style={styles.radioButton}>
-                <View style={styles.card}>
+                <View style={selectedValue === category ? styles.selectedCard : styles.card}>
                   <RadioButton
                     value={category}
                     status={selectedValue === category ? 'checked' : 'unchecked'}
@@ -127,11 +128,12 @@ const CreatePost = () => {
             }))}
             setOpen={setOpen}
             setValue={setValue}
-            style = {{marginTop : 20}}
+            style={styles.dropDownPicker}
           />
         ) : null}
-        <Pressable onPress={imagePicker} style={styles.ImagePicker}>
-          <Text style={styles.ImagePickerText}>Insert an Image</Text>
+        <Pressable onPress={imagePicker} style={styles.imagePicker}>
+          <MaterialIcons name="photo-library" size={30} color="#FFFFFF" />
+          <Text style={styles.imagePickerText}>Insert an Image</Text>
         </Pressable>
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Price</Text>
@@ -139,11 +141,10 @@ const CreatePost = () => {
             style={styles.input}
             placeholder="Price"
             onChangeText={setPrice}
-            multiline={true}
-            numberOfLines={4}
+            keyboardType="numeric"
           />
         </View>
-        <View style={styles.ButtonContainer}>
+        <View style={styles.buttonContainer}>
           <Pressable style={styles.postButton} onPress={handlePostButton}>
             <Text style={styles.buttonText}>Post</Text>
           </Pressable>
@@ -156,51 +157,63 @@ const CreatePost = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EEEE',
-    paddingTop: 20,
+    backgroundColor: '#f4f4f4',
+    paddingBottom : 10,
+
+  },
+  scrollContent: {
+    paddingHorizontal: 16,
   },
   heading: {
-    fontSize: 24,
-    marginTop: 40,
+    fontSize: 28,
+    marginTop: 20,
     color: 'black',
     marginBottom: 20,
     textAlign: 'center',
     fontWeight: 'bold',
+    fontFamily: 'your-custom-font',
   },
   inputContainer: {
-    marginTop: 30,
-    paddingHorizontal: 16,
+    marginTop: 20,
   },
   inputLabel: {
-    marginLeft: 5,
-    color: 'black',
-    fontSize: 18,
+    marginBottom: 10,
+    color: '#333',
+    fontSize: 20,
   },
   input: {
-    height: 40,
+    height: 50,
     width: '100%',
     marginVertical: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 8,
     borderColor: '#ccc',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
+    fontSize: 16,
   },
   RadioContainer: {
-    marginTop: 50,
+    marginTop: 30,
+  },
+  radioButtonsContainer: {
+    marginBottom: 20,
   },
   radioButton: {
     marginRight: 20,
   },
-  RadioText: {
-    color: 'black',
-    fontSize: 18,
-    marginBottom: 20,
+  selectedCard: {
     marginLeft: 10,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#0054a6',
+    borderWidth: 1,
   },
   card: {
     marginLeft: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
@@ -209,43 +222,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   cardText: {
-    color: 'black',
-    marginTop: 5,
+    color: '#333',
+    marginTop: 10,
+    fontSize: 16,
   },
-  ImagePicker: {
-    flex: 1,
+  imagePicker: {
     marginTop: 20,
     marginLeft: 10,
-    height: 50,
+    height: 60,
     backgroundColor: 'black',
-    width: 150,
-    borderRadius: 10,
+    width: 200,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
   },
-  ImagePickerText: {
-    color: 'white',
-    fontSize: 17,
+  imagePickerText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    marginLeft: 10,
   },
-  ButtonContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  dropDownPicker: {
+    marginTop: 20,
+  },
+  buttonContainer: {
+    marginTop: 50,
     alignItems: 'center',
-    paddingBottom: 60,
   },
   postButton: {
-    flex: 1,
-    marginTop: 50,
-    borderRadius: 15,
+    borderRadius: 20,
     backgroundColor: 'black',
-    width: 250,
-    height: 50,
+    width: 280,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 18,
+    color: '#FFFFFF',
+    fontSize: 24,
     textAlign: 'center',
   },
 });

@@ -11,7 +11,7 @@ const CarDetail = () => {
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 {cars.map((car, index) => (
-                    <Pressable style={styles.carContainer} key={index} onPress={()=>{navigation.navigate('CarCategoriesFilter' ,{carName : car.name})}}>
+                    <Pressable style={styles.carContainer} key={index} onPress={()=>{navigation.navigate('Cars Posts' ,{carName : car.name})}}>
                         <Image
                             source={{ uri: car.image.source }}
                             style={styles.carImage}
